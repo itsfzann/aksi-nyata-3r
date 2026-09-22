@@ -33,7 +33,13 @@ const menuList =
 const menuBtn =
   document.getElementById("menuBtn");
 
+const quizSlideIndex =
+  [...document.querySelectorAll(".slide")].findIndex(
+    (slide) => slide.classList.contains("quiz-slide")
+  );
+
 let currentSlide = 0;
+let quizCompleted = false;
 
 
 /* =========================
@@ -123,6 +129,15 @@ slides.forEach((slide, i) => {
 function showSlide(index) {
 
   if (!slides.length) {
+    return;
+  }
+
+
+  if (
+    currentSlide === quizSlideIndex &&
+    !quizCompleted &&
+    index !== quizSlideIndex
+  ) {
     return;
   }
 
@@ -219,11 +234,12 @@ function showSlide(index) {
   ========================= */
 
   prevBtn.disabled =
-    currentSlide === 0;
+    currentSlide === 0 ||
+    (currentSlide === quizSlideIndex && !quizCompleted);
 
   nextBtn.disabled =
-    currentSlide ===
-    slides.length - 1;
+    currentSlide === slides.length - 1 ||
+    (currentSlide === quizSlideIndex && !quizCompleted);
 
 
   /* =========================
@@ -244,6 +260,13 @@ function showSlide(index) {
 function nextSlide() {
 
   if (
+    currentSlide === quizSlideIndex &&
+    !quizCompleted
+  ) {
+    return;
+  }
+
+  if (
     currentSlide <
     slides.length - 1
   ) {
@@ -262,6 +285,13 @@ function nextSlide() {
 ========================= */
 
 function prevSlide() {
+
+  if (
+    currentSlide === quizSlideIndex &&
+    !quizCompleted
+  ) {
+    return;
+  }
 
   if (
     currentSlide > 0
@@ -349,6 +379,13 @@ document.addEventListener(
       event.key === " "
     ) {
 
+      if (
+        currentSlide === quizSlideIndex &&
+        !quizCompleted
+      ) {
+        return;
+      }
+
       event.preventDefault();
 
       nextSlide();
@@ -361,6 +398,13 @@ document.addEventListener(
     if (
       event.key === "ArrowLeft"
     ) {
+
+      if (
+        currentSlide === quizSlideIndex &&
+        !quizCompleted
+      ) {
+        return;
+      }
 
       event.preventDefault();
 
@@ -437,6 +481,13 @@ document.addEventListener(
       Math.abs(diffX) >
         Math.abs(diffY)
     ) {
+
+      if (
+        currentSlide === quizSlideIndex &&
+        !quizCompleted
+      ) {
+        return;
+      }
 
       if (diffX < 0) {
 
@@ -692,133 +743,133 @@ function closeModal() {
 const questions = [
 
   {
-    q: "Apa kepanjangan dari 3R?",
+    q: "Pada saat seorang siswa membawa tumbler sendiri ke sekolah, tindakan tersebut paling tepat termasuk dalam strategi Reduce karena...",
 
     a: [
-      "Reduce, Reuse, Recycle",
-      "Repair, Return, Remove",
-      "Reuse, Repair, Reduce",
-      "Recycle, Return, Reduce"
+      "Membuat sampah plastik berkurang sejak awal penggunaan",
+      "Mengolah plastik bekas menjadi produk baru",
+      "Memakai kembali botol lama yang masih layak",
+      "Menyimpan sampah agar tidak terlihat di kelas"
     ],
 
     c: 0
   },
 
   {
-    q: "Apa yang dimaksud dengan Reduce?",
+    q: "Sebuah tas belanja kain masih sangat bagus, tetapi sudah tidak dipakai lagi oleh pemiliknya. Tindakan paling bijak menurut prinsip 3R adalah...",
 
     a: [
-      "Mengolah sampah menjadi barang baru",
-      "Mengurangi penggunaan barang yang menghasilkan sampah",
-      "Membuang sampah pada tempatnya",
-      "Membeli barang baru"
+      "Membuang tas itu agar ruangan lebih rapi",
+      "Memberikannya kepada orang lain agar tetap dimanfaatkan",
+      "Membakarnya untuk menghindari sampah menumpuk",
+      "Mencampurkannya dengan sampah rumah tangga"
     ],
 
     c: 1
   },
 
   {
-    q: "Manakah contoh Reuse?",
+    q: "Perbedaan paling jelas antara Reduce dan Reuse dalam kehidupan sehari-hari adalah...",
 
     a: [
-      "Membuang botol setelah dipakai",
-      "Membakar sampah plastik",
-      "Menggunakan kembali botol yang masih layak",
-      "Membeli botol baru setiap hari"
-    ],
-
-    c: 2
-  },
-
-  {
-    q: "Apa tujuan utama Recycle?",
-
-    a: [
-      "Menambah jumlah sampah",
-      "Mengolah sampah menjadi barang atau bahan baru",
-      "Menggunakan lebih banyak plastik",
-      "Membakar semua sampah"
-    ],
-
-    c: 1
-  },
-
-  {
-    q: "Contoh Reduce di sekolah adalah...",
-
-    a: [
-      "Membawa tumbler",
-      "Membuang kertas sembarangan",
-      "Membeli minuman dengan banyak kemasan",
-      "Membuang buku yang masih bagus"
+      "Reduce mencegah sampah sejak awal, sedangkan Reuse memakai kembali barang yang masih layak",
+      "Reduce selalu melibatkan proses daur ulang, sedangkan Reuse tidak pernah memakai barang lama",
+      "Reduce hanya berlaku untuk plastik, sedangkan Reuse hanya berlaku untuk kertas",
+      "Reduce menambah jumlah barang baru, sedangkan Reuse membuang barang lama"
     ],
 
     c: 0
   },
 
   {
-    q: "Sebelum membuang barang, sebaiknya kita...",
+    q: "Jika sebuah buku pelajaran masih bisa dipakai untuk semester depan, tindakan yang paling tepat sesuai dengan konsep 3R adalah...",
 
     a: [
-      "Langsung membakarnya",
-      "Membeli penggantinya",
-      "Memeriksa apakah masih bisa digunakan",
-      "Mencampurnya dengan semua sampah"
-    ],
-
-    c: 2
-  },
-
-  {
-    q: "Langkah yang tepat setelah memilah sampah yang dapat didaur ulang adalah...",
-
-    a: [
-      "Membuangnya ke sungai",
-      "Mengolahnya sesuai jenis material",
-      "Membakarnya sembarangan",
-      "Mencampurnya kembali"
+      "Membuang buku itu agar tidak menumpuk",
+      "Memberikannya kepada adik atau teman yang membutuhkan",
+      "Membakar buku agar tidak berdebu",
+      "Mencetak ulang seluruh halaman sebagai pengganti buku lama"
     ],
 
     c: 1
   },
 
   {
-    q: "Mengapa Reduce menjadi langkah penting?",
+    q: "Manakah pernyataan berikut yang paling tepat mengenai Recycle?",
 
     a: [
-      "Karena mencegah sampah sejak awal",
-      "Karena membuat sampah lebih banyak",
-      "Karena semua barang harus dibuang",
-      "Karena Recycle tidak berguna"
+      "Recycle adalah langkah terakhir setelah barang tidak dapat dipakai lagi dan masih bisa diolah menjadi bahan baru",
+      "Recycle berarti memakai kembali barang lama tanpa perlu proses pengolahan",
+      "Recycle adalah cara membeli barang baru agar lebih modern",
+      "Recycle dilakukan sebelum barang tersebut masuk ke tahap Reduce"
     ],
 
     c: 0
   },
 
   {
-    q: "Contoh aksi 3R di sekolah adalah...",
+    q: "Sebuah wadah plastik masih sehat dan aman digunakan untuk menampung alat tulis, tetapi tidak lagi dipakai oleh pemilik semula. Pilihan tindakan yang paling sesuai dengan 3R adalah...",
 
     a: [
-      "Membuang sampah sembarangan",
-      "Membawa tumbler dan memilah sampah",
-      "Membakar plastik di halaman",
-      "Menggunakan kertas sebanyak mungkin"
+      "Menyimpannya di gudang sampai rusak",
+      "Menggunakannya kembali untuk kebutuhan lain yang masih bermanfaat",
+      "Membuangnya ke sampah umum agar bersih",
+      "Mencampurkannya dengan sampah organik agar tidak kelihatan"
     ],
 
     c: 1
   },
 
   {
-    q: "Apa manfaat menerapkan 3R?",
+    q: "Yang termasuk tindakan tidak tepat dalam memahami Reduce adalah...",
 
     a: [
-      "Lingkungan semakin kotor",
-      "Sampah semakin banyak",
-      "Lingkungan lebih bersih dan kebiasaan baik terbentuk",
-      "Penggunaan barang sekali pakai meningkat"
+      "Menunda pembelian barang yang tidak perlu",
+      "Menggunakan barang sesuai kebutuhan agar tidak cepat jadi sampah",
+      "Membeli barang baru meskipun barang lama masih layak pakai",
+      "Menggunakan produk yang tahan lama dan lebih efisien"
     ],
 
     c: 2
+  },
+
+  {
+    q: "Ketika makanan sisa masih dapat dimanfaatkan dengan cara disimpan dan digunakan kembali, tindakan paling sesuai dengan prinsip 3R adalah...",
+
+    a: [
+      "Membeli makanan lebih banyak agar tidak kehabisan",
+      "Menyusun kebutuhan dengan lebih bijak agar tidak berlebihan dan tidak terbuang sia-sia",
+      "Membuang semua sisa makanan agar tidak mengotori rumah",
+      "Membakar sisa makanan agar tidak menumpuk"
+    ],
+
+    c: 1
+  },
+
+  {
+    q: "Di lingkungan sekolah, tindakan yang paling tepat untuk menerapkan 3R secara utuh adalah...",
+
+    a: [
+      "Menggunakan botol minum sendiri, membawa tas bekas yang masih bagus, dan memilah sampah sebelum dibuang",
+      "Menyimpan semua sampah di satu tempat tanpa memilah agar mudah dibuang",
+      "Membeli alat tulis baru setiap bulan walaupun masih bisa dipakai",
+      "Membuang kertas yang masih berisi catatan agar lebih bersih"
+    ],
+
+    c: 0
+  },
+
+  {
+    q: "Tujuan utama penerapan 3R dalam kehidupan sehari-hari bukan sekadar mengurangi limbah, tetapi juga...",
+
+    a: [
+      "Membuat orang lebih cepat membeli barang baru",
+      "Menghemat sumber daya alam dan menjaga lingkungan agar tetap sehat",
+      "Menyamakan semua jenis sampah menjadi satu",
+      "Mengurangi kewajiban untuk memilah sampah di rumah"
+    ],
+
+    c: 1
   }
 
 ];
@@ -827,6 +878,7 @@ const questions = [
 let qIndex = 0;
 let score = 0;
 let answered = false;
+const pointsPerQuestion = 2;
 
 
 const questionEl =
@@ -866,6 +918,8 @@ const nextQuestion =
 
 function loadQuiz() {
 
+  quizCompleted = false;
+
   const item =
     questions[qIndex];
 
@@ -879,7 +933,7 @@ function loadQuiz() {
 
 
   quizScore.textContent =
-    `Skor: ${score}`;
+    `Skor: ${score} / ${questions.length * pointsPerQuestion}`;
 
 
   feedbackEl.textContent =
@@ -974,7 +1028,7 @@ function answerQuiz(selected) {
     selected === correct
   ) {
 
-    score++;
+    score += pointsPerQuestion;
 
 
     feedbackEl.textContent =
@@ -1002,7 +1056,7 @@ function answerQuiz(selected) {
 
 
   quizScore.textContent =
-    `Skor: ${score}`;
+    `Skor: ${score} / ${questions.length * pointsPerQuestion}`;
 
 
   nextQuestion.style.display =
@@ -1051,7 +1105,7 @@ nextQuestion.onclick =
 function showQuizResult() {
 
   const percent =
-    (score / questions.length) *
+    (score / (questions.length * pointsPerQuestion)) *
     100;
 
 
@@ -1079,7 +1133,7 @@ function showQuizResult() {
 
 
   questionEl.textContent =
-    `${title} Kamu mendapat ${score} dari ${questions.length} jawaban benar.`;
+    `${title} Kamu mendapat ${score} dari ${questions.length * pointsPerQuestion} poin.`;
 
 
   optionsEl.innerHTML = `
@@ -1126,6 +1180,9 @@ function showQuizResult() {
     "inline-block";
 
 
+  quizCompleted = true;
+  showSlide(currentSlide);
+
   nextQuestion.onclick =
     () => {
 
@@ -1134,6 +1191,7 @@ function showQuizResult() {
       score = 0;
 
       loadQuiz();
+      showSlide(currentSlide);
 
     };
 

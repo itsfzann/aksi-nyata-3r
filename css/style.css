@@ -1128,7 +1128,7 @@ main {
 
   border: 2px dashed #b7d9c2;
 
-  background: #fff;
+  background: linear-gradient(180deg, #f5fbf7 0%, #ffffff 100%);
 
   border-radius: 25px;
 
@@ -1143,20 +1143,44 @@ main {
   text-align: center;
 
   color: var(--muted);
+
+  padding: 24px;
 }
 
-.action-placeholder span {
-  font-size: 70px;
+.action-visual {
+  width: 100%;
+
+  height: 260px;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  background: #edf7f0;
+
+  box-shadow: 0 10px 25px rgba(31, 105, 66, 0.12);
+}
+
+.action-visual img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
 }
 
 .action-placeholder strong {
   color: var(--dark);
 
-  margin: 15px 0 6px;
+  margin: 14px 0 6px;
 }
 
 .action-placeholder small {
   font-size: 12px;
+
+  line-height: 1.6;
 }
 
 /* =========================
@@ -1194,19 +1218,19 @@ main {
 
   background: #edf3ee;
 
-  display: grid;
+  overflow: hidden;
 
-  place-items: center;
+  box-shadow: inset 0 0 0 1px rgba(83, 121, 96, 0.12);
+}
 
-  text-align: center;
+.ba-photo img {
+  width: 100%;
 
-  color: #91a69a;
+  height: 100%;
 
-  font-size: 20px;
+  object-fit: cover;
 
-  font-weight: 800;
-
-  letter-spacing: 2px;
+  display: block;
 }
 
 .ba-card h3 {
